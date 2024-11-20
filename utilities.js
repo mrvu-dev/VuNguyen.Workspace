@@ -47,3 +47,11 @@ function getFirstDayOfWeek(date = new Date()) {
   const diff = date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Tính số ngày cần trừ để đến thứ Hai
   return new Date(date.setDate(diff));
 }
+
+// Lấy 15 ngày trước kể từ ngày hiện tại
+function get15DaysAgo() {
+    const today = new Date();
+    const thirtyDaysAgo = new Date(today);
+    thirtyDaysAgo.setDate(today.getDate() - 15);
+    return thirtyDaysAgo;
+}
