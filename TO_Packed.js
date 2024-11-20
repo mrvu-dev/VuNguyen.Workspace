@@ -3,7 +3,15 @@ function TO_Packed() {
   var destination_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A/edit");
   var destination_Sheet = destination_Spreadsheet.getSheetByName("TO_Packed");
 
-  var url = "https://spx.shopee.vn/api/in-station/general_to/outbound/search?pageno=1&count=1000&status=2&ctime=1729357200,1732121999";
+  const day = new Date();
+  day.setHours(23, 59, 59, 59);
+  const get15Days = get15DaysAgo();
+  get15Days.setHours(0, 0, 0, 0);  
+
+  var start_time = Math.floor(timestamp(get15Days)/1000);
+  var end_time = Math.floor(timestamp(day)/1000);
+  var url = "https://spx.shopee.vn/api/in-station/general_to/outbound/search?pageno=1&count=1000&status=2&ctime=" + start_time + "," + end_time;
+  Logger.log(url);
 
   var infor_Sheet = destination_Spreadsheet.getSheetByName("README");
   fms_user_id = infor_Sheet.getRange("H3").getValue();
