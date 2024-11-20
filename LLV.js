@@ -1,4 +1,5 @@
 // Cập nhật lịch làm việc 8 ngày tiếp theo
+
 function LLV() {
   // Sheet lấy data
   var source_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1SlXiDuY1U9pv5iW3brkvmg_Ng0hwz9lxqjdM4X_rYww/edit");
@@ -6,7 +7,7 @@ function LLV() {
 
   // Sheet chứa data
   var destination_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A/edit");
-  var destination_Sheet = destination_Spreadsheet.getSheetByName("1.LLV");
+  var destination_Sheet = destination_Spreadsheet.getSheetByName("LLV");
 
   var SPX_ID = destination_Sheet.getRange("C3:C").getValues();
   var SPX_IDs = [];
@@ -43,9 +44,9 @@ function LLV() {
 
 
   // Hiển thị mảng data_LLs vào sheet
-  refreshSheet('1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A','1.LLV','F3:M');
+  refreshSheet('1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A','LLV','G3:N');
   if (data_LLVs.length > 0) {
-    destination_Sheet.getRange(3, 6, data_LLVs.length, data_LLVs[0].length).setValues(data_LLVs);
+    destination_Sheet.getRange(3, 7, data_LLVs.length, data_LLVs[0].length).setValues(data_LLVs);
     destination_Sheet.getRange('A1').setValue('Last Update: ' + day.toLocaleDateString('vi-VN')+ ' ' + day.toLocaleTimeString('vi-VN'))
   } else {
     destination_Sheet.getRange("A1").setValue("Không truy vấn được dữ liệu");
