@@ -17,6 +17,7 @@ function addDays(date, days) {
   return newDate;
 }
 
+// Định dạng lại ngày tháng.
 function formattedDate(time) {
   time = new Date(time);
   var day = time.getDate();
@@ -26,15 +27,23 @@ function formattedDate(time) {
   return time;
 }
 
+// Lấy ngày.
 function layngay(time) {
   var getString = formattedDate(time)
   const kq = parseInt(getString.slice(0, 2));
   return kq;
 }
 
+// Chuyển đổi date sang timestamp.
+function timestamp(time) {
+  time = new Date(time);
+  time.getTime();
+  return time;
+}
 
-function checkCode() {
-  const day = new Date();
-  today = addDays(day,8);
-  Logger.log("Ngay: " + today.toLocaleDateString('vi-VN')+ ' ' + today.toLocaleTimeString('vi-VN'));
+// Lấy ngày đầu tiên của tuần hiện tại.
+function getFirstDayOfWeek(date = new Date()) {
+  const dayOfWeek = date.getDay(); // Lấy thứ trong tuần (0 - Chủ Nhật, 1 - Thứ Hai, ..., 6 - Thứ Bảy)
+  const diff = date.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Tính số ngày cần trừ để đến thứ Hai
+  return new Date(date.setDate(diff));
 }
