@@ -9,7 +9,7 @@ function LLV() {
   var destination_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A/edit");
   var destination_Sheet = destination_Spreadsheet.getSheetByName("LLV");
 
-  var SPX_ID = destination_Sheet.getRange("C3:C").getValues();
+  var SPX_ID = destination_Sheet.getRange("C3:C22").getValues();
   var SPX_IDs = [];
   
   for (var i = 0; i < SPX_ID.length; i++){

@@ -20,6 +20,8 @@ function createMenu() {
         .addItem('Cập nhật dữ liệu', 'Plan_Truck'))
       .addSubMenu(ui.createMenu('TO_Packed')
         .addItem('Cập nhật dữ liệu', 'TO_Packed'))
+      .addSubMenu(ui.createMenu('Data_Rider')
+        .addItem('Cập nhật dữ liệu', 'Data_Rider'))
   .addToUi();
 }
 

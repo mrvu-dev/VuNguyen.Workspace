@@ -1,22 +1,24 @@
 // Xóa dữ liệu cũ của sheet
 
 function refresh_Push_Reverse() {
-  refreshSheet("1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A","Follow_Reverse","E2:K");
+  refreshSheet("1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A","Follow_Reverse","A3:G");
 }
 
 //  Lấy dữ liệu pickup về sheet.
 
 function craw_pending_assign() {
   // Sheet chứa data
-  var destination_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A/edit");
-  var destination_Sheet = destination_Spreadsheet.getSheetByName("Follow_Reverse");
+  var fms_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A/edit");
+  var fms_Sheet = fms_Spreadsheet.getSheetByName("Follow_Reverse");
+  var destination_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1cl8dsvV923vkJelkGHP9y2P860O1ZC3jvaYsqBxKHpk/edit");
+  var destination_Sheet = destination_Spreadsheet.getSheetByName("Mapped_PUPG");
 
   var url = "https://spx.shopee.vn/api/admin/pickup/pickup_point/pending_assign?pageno=1&count=2000&pickup_status=12&service_type_id_list=6&order_by_oldest=1";
 
-  var infor_Sheet = destination_Spreadsheet.getSheetByName("README");
-  fms_user_id = infor_Sheet.getRange("H3").getValue();
-  fms_user_skey = infor_Sheet.getRange("H2").getValue();
-  fms_display_name = infor_Sheet.getRange("H1").getValue();
+  var infor_Sheet = fms_Spreadsheet.getSheetByName("README");
+  fms_user_id = infor_Sheet.getRange("C3").getValue();
+  fms_user_skey = infor_Sheet.getRange("C2").getValue();
+  fms_display_name = infor_Sheet.getRange("C1").getValue();
 
   var options = {
     "method": "get",
@@ -53,10 +55,10 @@ function craw_pending_assign() {
       } 
 
     } else {
-      destination_Sheet.getRange("A2").setValue("fms_user_skey đã thay đổi");
+      fms_Sheet.getRange("H1").setValue("fms_user_skey đã thay đổi");
     }
   } catch (error) {
-    destination_Sheet.getRange("A2").setValue("Lỗi Code");
+    fms_Sheet.getRange("H1").setValue("Lỗi Code");
   }
 
   var data = [];
@@ -70,11 +72,13 @@ function craw_pending_assign() {
     data.push(row);
   }
 
-  refreshSheet("1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A","Follow_Reverse","A2:C");
+  const timenow = new Date();
 
   if (data.length > 0) {
+    refreshSheet("1cl8dsvV923vkJelkGHP9y2P860O1ZC3jvaYsqBxKHpk","Mapped_PUPG","A2:C");
     destination_Sheet.getRange(2, 1, data.length, data[0].length).setValues(data);
+    fms_Sheet.getRange("H1").setValue("Last update: " + timenow.toLocaleDateString('vi-VN')+ ' ' + timenow.toLocaleTimeString('vi-VN'));
   } else {
-    destination_Sheet.getRange("A2").setValue("Không truy vấn được dữ liệu");
+    fms_Sheet.getRange("H1").setValue("Không truy vấn được dữ liệu");
   }
 }

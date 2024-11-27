@@ -14,9 +14,9 @@ function TO_Packed() {
   Logger.log(url);
 
   var infor_Sheet = destination_Spreadsheet.getSheetByName("README");
-  fms_user_id = infor_Sheet.getRange("H3").getValue();
-  fms_user_skey = infor_Sheet.getRange("H2").getValue();
-  fms_display_name = infor_Sheet.getRange("H1").getValue();
+  fms_user_id = infor_Sheet.getRange("C3").getValue();
+  fms_user_skey = infor_Sheet.getRange("C2").getValue();
+  fms_display_name = infor_Sheet.getRange("C1").getValue();
 
   var options = {
     "method": "get",
@@ -32,7 +32,7 @@ function TO_Packed() {
     d['to_number'] = json.to_number;
     d['quantity'] = json.quantity;
     d['dest_station_name'] = json.dest_station_name;
-    d['high_value'] = json.high_value;
+    d['high_value'] = check_high_value(json.high_value);
     d['operator'] = json.operator;
     d['transfer_direction'] = json.transfer_direction;
     return d;
@@ -58,10 +58,11 @@ function TO_Packed() {
       } 
 
     } else {
-      destination_Sheet.getRange("A1").setValue("fms_user_skey đã thay đổi");
+      destination_Sheet.getRange("A1").setValue("fms_user_skey đã thay đổi - PIC Vũ Nguyễn");
+      return;
     }
   } catch (error) {
-    destination_Sheet.getRange("A1").setValue("Lỗi Code");
+    destination_Sheet.getRange("A3").setValue("Lỗi Code - PIC Vũ Nguyễn");
   }
 
   var data = [];
@@ -89,6 +90,6 @@ function TO_Packed() {
     destination_Sheet.getRange(3, 1, data.length, data[0].length).setValues(data);
     destination_Sheet.getRange("A1").setValue("Last update: " + timenow.toLocaleDateString('vi-VN')+ ' ' + timenow.toLocaleTimeString('vi-VN'));
   } else {
-    destination_Sheet.getRange("A1").setValue("fms_user_skey đã thay đổi");
+    destination_Sheet.getRange("A1").setValue("Không có TO chờ lên tải");
   }
 }

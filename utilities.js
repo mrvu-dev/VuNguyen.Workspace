@@ -55,3 +55,13 @@ function get15DaysAgo() {
     thirtyDaysAgo.setDate(today.getDate() - 15);
     return thirtyDaysAgo;
 }
+
+// Kiểm tra TO có phải là giá trị cao không
+function check_high_value(high_value) {
+  if (high_value == 1) {
+    high_value = "Y";
+  } else {
+    high_value = "N"
+  }
+  return high_value;
+}
