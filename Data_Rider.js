@@ -31,6 +31,5 @@ function Data_Rider() {
     } else {
       destination_Sheet.getRange("A1").setValue("Sheet nguồn gặp lỗi");
     }
-  
-  }
+}
   
