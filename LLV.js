@@ -9,7 +9,7 @@ function LLV() {
   var destination_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A/edit");
   var destination_Sheet = destination_Spreadsheet.getSheetByName("LLV");
 
-  var SPX_ID = destination_Sheet.getRange("C3:C22").getValues();
+  var SPX_ID = destination_Sheet.getRange("C3:C").getValues();
   var SPX_IDs = [];
   
   for (var i = 0; i < SPX_ID.length; i++){
@@ -34,14 +34,22 @@ function LLV() {
         }
       }
     }    
-  }  
+  } 
 
-  var data_LLVs = [];
-  for (i = 0; i < data_LLV.length; i++){
-    var n = SPX_IDs.indexOf(data_LLV[i][0]);
-    data_LLVs.push([data_LLV[n][1], data_LLV[n][2], data_LLV[n][3], data_LLV[n][4], data_LLV[n][5], data_LLV[n][6], data_LLV[n][7], data_LLV[n][8]]);
+
+  // Lấy id của data_LLV lưu vào một mảng riêng.
+  var id_data_LLV = new Array();
+  for (row = 0; row < data_LLV.length; row++) {
+    id_data_LLV.push(data_LLV[row][0]);
   }
 
+  // Tìm vị trí id nhân viên tại sheet ứng với vị trí id nhân viên tại gsheet nguồn và lưu tuần tự vào.
+  var data_LLVs = [];
+  for (i = 0; i < data_LLV.length; i++){
+    var n = id_data_LLV.indexOf(SPX_IDs[i]);
+    // Logger.log("Vị trí " + SPX_IDs[i] + " trong data_LLV là: " + n);
+    data_LLVs.push([data_LLV[n][1], data_LLV[n][2], data_LLV[n][3], data_LLV[n][4], data_LLV[n][5], data_LLV[n][6], data_LLV[n][7], data_LLV[n][8]]);
+  }
 
   // Hiển thị mảng data_LLs vào sheet
   refreshSheet('1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A','LLV','G3:N');
