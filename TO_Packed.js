@@ -11,20 +11,7 @@ function TO_Packed() {
   var start_time = Math.floor(timestamp(get15Days)/1000);
   var end_time = Math.floor(timestamp(day)/1000);
   var url = "https://spx.shopee.vn/api/in-station/general_to/outbound/search?pageno=1&count=1000&status=2&ctime=" + start_time + "," + end_time;
-  Logger.log(url);
-
-  var infor_Sheet = destination_Spreadsheet.getSheetByName("README");
-  fms_user_id = infor_Sheet.getRange("C3").getValue();
-  fms_user_skey = infor_Sheet.getRange("C2").getValue();
-  fms_display_name = infor_Sheet.getRange("C1").getValue();
-
-  var options = {
-    "method": "get",
-    "headers": {
-    "Cookie": "fms_user_id=" + fms_user_id + "; fms_user_skey=" + fms_user_skey + "; fms_display_name=" + fms_display_name + "; spx_st = 1; spx_cid = VN"
-    },
-    "muteHttpExceptions": true
-  };
+  var options = options_API();
 
   // Tạo kiểu dữ liệu cần lấy
   function parserProduct(json) {
@@ -47,7 +34,7 @@ function TO_Packed() {
     // check status
     if (response.getResponseCode() == 200) {
       var data = JSON.parse(response.getContentText());
-      var lengthData = 200;    
+      var lengthData = 200;
 
       // continue data processing
       for (var i = 0; i < lengthData; i++) {

@@ -7,7 +7,8 @@ function createMenu() {
         .addItem('Cập nhật PlanOS', 'PlanOS'))
       .addSubMenu(ui.createMenu('Follow_Reverse')
         .addItem('Xóa dữ liệu cũ', 'refresh_Push_Reverse')
-        .addItem('Cập nhật [pending_assign]', 'craw_pending_assign'))
+        .addItem('Cập nhật [pending_assign]', 'craw_pending_assign')
+        .addItem('Check onhold time - pending project', 'craw_pending_assign'))
       .addSubMenu(ui.createMenu('Before_Lost')
         .addItem('Cập nhật dữ liệu', 'Before_Lost'))      
       .addSubMenu(ui.createMenu('Check_Overdue')
@@ -22,6 +23,9 @@ function createMenu() {
         .addItem('Cập nhật dữ liệu', 'TO_Packed'))
       .addSubMenu(ui.createMenu('Data_Rider')
         .addItem('Cập nhật dữ liệu', 'Data_Rider'))
+      .addSubMenu(ui.createMenu('Data_LH_Complete')
+        .addItem("Xóa dữ liệu cũ", "refresh_Data_LH_Complete")
+        .addItem('Export data', 'Data_LH_Complete'))
   .addToUi();
 }
 
