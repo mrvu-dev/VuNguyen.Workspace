@@ -3,7 +3,7 @@
 function Check_OrderSPX() {
   // Sheet lấy data
   var source_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1R-DfZaTKOiZLGj3u-Lza2kxkvGC0YEQmqAn2JAHJs3A/edit");
-  var source_Sheet = source_Spreadsheet.getSheetByName("Đơn nội bộ (Ops/HR/IT/CS/DOP)");
+  var source_Sheet = source_Spreadsheet.getSheetByName("Đơn_nội_bộ_(Ops/HR/IT/CS/TDOP)");
 
   // Sheet chứa data
   var destination_Spreadsheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A/edit");
@@ -11,10 +11,11 @@ function Check_OrderSPX() {
 
   var data_A77 = source_Sheet.getRange("B5:AM").getValues();
   var data = [];
-  var hub_Code = 296;
+  var hub_Code = [296, 285];
 
   for (var row = 0; row < data_A77.length; row++) {
-    if(data_A77[row][6] == hub_Code || data_A77[row][14] == hub_Code) {
+    // data_A77[row][6] == hub_Code || data_A77[row][14] == hub_Code
+    if(hub_Code.indexOf(data_A77[row][6]) > -1 || hub_Code.indexOf(data_A77[row][14]) > -1) {
       data.push(data_A77[row]);
     }
   }

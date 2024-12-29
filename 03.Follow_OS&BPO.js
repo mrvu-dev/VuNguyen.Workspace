@@ -2,7 +2,7 @@
 
 function Follow_OS_BPO() {
   // Khai báo sheet lấy dữ liệu
-  var directorySpr = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1gd662-yEDRBjoeffKRtKS9N0A2usNM7p_fAABl8j0tw/edit");
+  var directorySpr = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1yAkN-qx_7EKFZBQRIRJ4TxLOzpcIv5PGviIGkK400hk/edit");
   var directorySheet_in = directorySpr.getSheetByName('Checkin');
   var directorySheet_out = directorySpr.getSheetByName('Checkout');
 

@@ -41,6 +41,13 @@ function timestamp(time) {
   return time;
 }
 
+// Chuyển đổi timestamp sang date.
+function convertTimestamp(timestamp) {
+  const date = new Date(timestamp * 1000);
+  convertdate = date.toLocaleDateString('vi-VN')+ ' ' + date.toLocaleTimeString('vi-VN')
+  return convertdate;
+}
+
 // Lấy ngày đầu tiên của tuần hiện tại.
 function getFirstDayOfWeek(date = new Date()) {
   const dayOfWeek = date.getDay(); // Lấy thứ trong tuần (0 - Chủ Nhật, 1 - Thứ Hai, ..., 6 - Thứ Bảy)
