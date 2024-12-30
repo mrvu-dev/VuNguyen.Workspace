@@ -1,5 +1,5 @@
 function refresh_Data_LH_Complete() {
-  refreshSheet("1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A","Data_LH_Complete","A2:F");
+  refreshSheet("1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A","Data_LH_Complete","A2:G");
 }
 
 function Data_LH_Complete() {
@@ -10,27 +10,29 @@ function Data_LH_Complete() {
   var value_mySheet = mySheet.getRange("A2:A").getValues();
   const options = options_API();
 
-  try{
-    var id_LT = new Array();
-    var url_get_ID = "https://spx.shopee.vn/api/admin/transportation/trip/history/list?trip_number=";    
-    for (var i = 0; i < value_mySheet.length; i++) {
-      if(value_mySheet[i][0] != "") {
-        var response = UrlFetchApp.fetch(url_get_ID + value_mySheet[i][0], options);
-        if(response.getResponseCode() == 200){
-          var data = JSON.parse(response.getContentText());
+  var id_LT = new Array();
+  var url1 = "https://spx.shopee.vn/api/admin/transportation/trip/history/list?trip_number=";
+  var url2 = "https://spx.shopee.vn/api/admin/transportation/trip/list?trip_number=";
+  for (var i = 0; i < value_mySheet.length; i++) {
+    if(value_mySheet[i][0] != "") {
+      var response = UrlFetchApp.fetch(url1 + value_mySheet[i][0], options);
+      var data = JSON.parse(response.getContentText());
+      var check_data = data.data.total;
+      switch (check_data != 0) {
+        case true:
           var iJSON = data.data.list[0];
           id_LT.push([iJSON.id, iJSON.trip_number]);
-        } else {
-          Logger.log("API call failed for trip number: " + value_mySheet[i][0]);
-        }
-      }
+          break;
+        case false:
+          response = UrlFetchApp.fetch(url2 + value_mySheet[i][0], options);
+          data = JSON.parse(response.getContentText());
+          var iJSON = data.data.list[0];
+          id_LT.push([iJSON.id, iJSON.trip_number]);
+          break;          
+      };
     }
-  } catch(error) {
-    Logger.log("LH Trip Number is null");
   }
-  
-  // Kiểm tra đã lấy được id chưa ?
-  // Logger.log("data ID: " + id_LT);
+
 
   // Khai báo thông tin cần lấy
   function parser_LT(LT, json_loading) {
@@ -49,7 +51,6 @@ function Data_LH_Complete() {
   var IDs = 0;
   do{
     var link = url_get_dataLT + id_LT[IDs][0] + "&pageno=1&count=5000&loaded_sequence_number=1&type=outbound";
-    Logger.log(link);
     var response_data = UrlFetchApp.fetch(link, options);
     var data_IDs = JSON.parse(response_data.getContentText());
     if(response_data.getResponseCode() == 200){
@@ -59,12 +60,12 @@ function Data_LH_Complete() {
     }  
     for (var j = 0; j < IDsJSON.length; j++) {
       data_LH.push(parser_LT(id_LT[IDs][1], IDsJSON[j]));
+
     }
     IDs++;
   }while(IDs < id_LT.length);
 
 
-  // Logger.log(data_LH); check
   // Sắp xếp lại dữ liệu theo thứ tự mong muốn
   var data = [];
   for (var i = 0; i < data_LH.length; i++) {
@@ -78,10 +79,9 @@ function Data_LH_Complete() {
     data.push(row);
   }
 
-  // Logger.log(data);
 
   try {
-    mySheet.getRange("C3:F").clearContent();
+    mySheet.getRange("C2:G").clearContent();
   }catch (error) {
     SpreadsheetApp.getActiveSpreadsheet().toast("Không có dữ liệu để xóa", "DONE!", 3);
   }
@@ -89,6 +89,6 @@ function Data_LH_Complete() {
   if (data.length > 0) {
     mySheet.getRange(2, 3, data.length, data[0].length).setValues(data);
   } else {
-    destination_Sheet.getRange("C2").setValue("Truy vấn dữ liệu không thành công");
+    mySheet.getRange("C2").setValue("Truy vấn dữ liệu không thành công");
   }
 }
