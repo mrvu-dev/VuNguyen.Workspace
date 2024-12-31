@@ -1,12 +1,12 @@
-function refresh_Data_LH_Complete() {
-  refreshSheet("1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A","Data_LH_Complete","A2:G");
+function refresh_Data_LH() {
+  refreshSheet("1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A","Data_LH","A2:G");
 }
 
-function Data_LH_Complete() {
+function Data_LH() {
 
   // Lấy id tất cả LT lưu vào một mảng.
   var myAppSpr = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A/edit");
-  var mySheet = myAppSpr.getSheetByName("Data_LH_Complete");
+  var mySheet = myAppSpr.getSheetByName("Data_LH");
   var value_mySheet = mySheet.getRange("A2:A").getValues();
   const options = options_API();
 
