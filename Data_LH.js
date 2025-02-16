@@ -8,7 +8,7 @@ function Data_LH() {
   var myAppSpr = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1-YHC2Nvv9s97CfB2ShgKwO9J2xMFrZ-PHR_t5IiV8-A/edit");
   var mySheet = myAppSpr.getSheetByName("Data_LH");
   var value_mySheet = mySheet.getRange("A2:A").getValues();
-  const options = options_API();
+  const options = options_GET();
 
   var id_LT = new Array();
   var url1 = "https://spx.shopee.vn/api/admin/transportation/trip/history/list?trip_number=";

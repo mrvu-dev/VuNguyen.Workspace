@@ -1,4 +1,4 @@
-// Kiểm tra đơn nội bộ 247
+// Kiểm tra đơn nội bộ SPX
 
 function Check_OrderSPX() {
   // Sheet lấy data
@@ -11,7 +11,7 @@ function Check_OrderSPX() {
 
   var data_A77 = source_Sheet.getRange("B5:AM").getValues();
   var data = [];
-  var hub_Code = [296, 285];
+  var hub_Code = [296];
 
   for (var row = 0; row < data_A77.length; row++) {
     // data_A77[row][6] == hub_Code || data_A77[row][14] == hub_Code

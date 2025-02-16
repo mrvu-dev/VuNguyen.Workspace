@@ -13,7 +13,7 @@ function craw_pending_assign() {
   var destination_Sheet = destination_Spreadsheet.getSheetByName("pending_assign");
 
   var url = "https://spx.shopee.vn/api/admin/pickup/pickup_point/pending_assign?pageno=1&count=2000&pickup_status=12&service_type_id_list=6&order_by_oldest=1";
-  var options = options_API();
+  var options = options_GET();
 
   // Tạo kiểu dữ liệu cần lấy
   function parserProduct(json) {
